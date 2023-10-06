@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NeosNonPersistentInspectors</RootNamespace>
-    <AssemblyName>NeosNonPersistentInspectors</AssemblyName>
+    <RootNamespace>ResoniteNonPersistentInspectors</RootNamespace>
+    <AssemblyName>ResoniteNonPersistentInspectors</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -34,20 +34,25 @@
   <PropertyGroup>
     <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(GamePath)'==''">
+    <GamePath>$(MSBuildThisFileDirectory)Resonite/</GamePath>
+    <GamePath Condition="Exists('C:\Program Files (x86)\Steam\steamapps\common\Resonite\')">C:\Program Files (x86)\Steam\steamapps\common\Resonite\</GamePath>
+    <GamePath Condition="Exists('$(HOME)/.steam/steam/steamapps/common/Resonite/')">$(HOME)/.steam/steam/steamapps/common/Resonite/</GamePath>
+    <GamePath Condition="Exists('R:\SteamLibrary\steamapps\common\Resonite\')">R:\SteamLibrary\steamapps\common\Resonite\</GamePath>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony">
-      <HintPath>R:\SteamLibrary\steamapps\common\NeosVR\0Harmony.dll</HintPath>
+      <HintPath>$(GamePath)rml_libs\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="FrooxEngine">
-      <HintPath>R:\SteamLibrary\steamapps\common\NeosVR\Neos_Data\Managed\FrooxEngine.dll</HintPath>
+      <HintPath>$(GamePath)Resonite_Data\Managed\FrooxEngine.dll</HintPath>
     </Reference>
-    <Reference Include="NeosModLoader, Version=2021.12.13.692, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>R:\SteamLibrary\steamapps\common\NeosVR\Libraries\NeosModLoader.dll</HintPath>
+    <Reference Include="ResoniteModLoader">
+      <HintPath>$(GamePath)Libraries\ResoniteModLoader.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NeosNonPersistentInspectors.cs" />
+    <Compile Include="ResoniteNonPersistentInspectors.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -55,6 +60,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy "$(TargetDir)\$(TargetFileName)" "E:\Documents\GitHub\NeosNonPersistentInspectors\NeosNonPersistentInspectors\Build\"</PostBuildEvent>
+    <PostBuildEvent>copy "$(TargetDir)$(TargetFileName)" "$(GamePath)rml_mods\"</PostBuildEvent>
   </PropertyGroup>
 </Project>
